@@ -113,20 +113,27 @@ class MainWindow(QMainWindow):
         print(f"Main thread: Menerima data dari MQTT -> {message}")
         
         try:
-            # Coba parsing data JSON
-            data = json.loads(message)
-            temp = data.get("temp", "N/A")
-            hum = data.get("hum", "N/A")
-            lux = data.get("lux", "N/A")
+            parts = message.split(',')
             
-            # Sekarang Anda bisa mengupdate widget di dashboard Anda
-            # CONTOH: (Asumsi Anda punya QLabel bernama temp_label di dashboard.py)
-            # self.dashboard_widget.temp_label.setText(f"{temp}°C")
-            # self.dashboard_widget.hum_label.setText(f"{hum}%")
-            # self.dashboard_widget.lux_label.setText(f"{lux} lux")
-            
-        except json.JSONDecodeError:
-            print(f"Main thread: Data diterima bukan format JSON yang valid: {message}")
+            if len(parts) == 5:
+                temp = float(parts[0])
+                hum = float(parts[1])
+                lux = int(parts[2])
+                eco2 = int(parts[3])
+                tvoc = int(parts[4])
+                
+                print(f"Data Parsed -> Temp: {temp}, Hum: {hum}, Lux: {lux}, eCO2: {eco2}, TVOC: {tvoc}")
+                
+                # Sekarang Anda bisa mengupdate widget di dashboard Anda
+                # CONTOH: (Asumsi Anda punya QLabel bernama temp_label di dashboard.py)
+                # self.dashboard_widget.temp_label.setText(f"{temp}°C")
+                # self.dashboard_widget.hum_label.setText(f"{hum}%")
+                
+            else:
+                print(f"Main thread: Format data tidak sesuai, jumlah bagian: {len(parts)}")
+                
+        except (ValueError, IndexError) as e:
+            print(f"Main thread: Error saat mem-parse data: {e}")
 
 
 

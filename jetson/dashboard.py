@@ -203,9 +203,9 @@ class Dashboard(QWidget):
         # You can change these coordinates to match the user's country/city
         lat, lon = -6.2, 106.8
         try:
-            url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
-            response = requests.get(url, timeout=5)
-            data = response.json()
+            # url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
+            # response = requests.get(url, timeout=5)
+            # data = response.json()
             temp = data["current_weather"]["temperature"]
             self.temp_label.setText(f"🌡️ {temp}°C")
         except Exception:
