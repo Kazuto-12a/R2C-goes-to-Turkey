@@ -128,6 +128,7 @@ class MainWindow(QMainWindow):
                 # CONTOH: (Asumsi Anda punya QLabel bernama temp_label di dashboard.py)
                 # self.dashboard_widget.temp_label.setText(f"{temp}°C")
                 # self.dashboard_widget.hum_label.setText(f"{hum}%")
+                self.dashboard_widget.update_sensor_data(temp, hum, lux, eco2, tvoc)
                 
             else:
                 print(f"Main thread: Format data tidak sesuai, jumlah bagian: {len(parts)}")
