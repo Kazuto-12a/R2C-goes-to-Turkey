@@ -1,0 +1,175 @@
+/* =================================================================== */
+/* PALET WARNA & FONT BARU                        */
+/* =================================================================== */
+/*
+* {
+    font-family: "Roboto", sans-serif; /* FONT BARU: Menggunakan Roboto untuk tampilan modern & bersih */
+}
+*/
+/* =================================================================== */
+/* GAYA JENDELA UTAMA                          */
+/* =================================================================== */
+QMainWindow, QWidget#central-widget {
+    background-color: #f4f7fa; /* WARNA BARU: Latar belakang off-white, lebih nyaman di mata */
+}
+
+/* =================================================================== */
+/* SIDEBAR                               */
+/* =================================================================== */
+QWidget#sidebar {
+    background-color: #004d40; /* WARNA BARU: Hijau teal yang lebih dalam dan elegan */
+    border-right: none; /* Hapus border, kita akan gunakan shadow untuk pemisah */
+}
+
+QLabel#sidebar-label {
+    color: #e0f2f1; /* Warna teks yang lebih lembut */
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px 10px;
+    qproperty-alignment: 'AlignCenter';
+    letter-spacing: 1.5px; /* Sedikit jarak antar huruf untuk kesan premium */
+}
+
+QFrame#sidebar-divider {
+    background-color: #26a69a; /* Warna divider yang lebih cerah dan kontras */
+    height: 1px;
+    margin: 5px 10px; /* Beri sedikit margin */
+}
+
+/* --- Tombol Sidebar --- */
+QPushButton {
+    color: #b2dfdb; /* Warna teks tombol default */
+    background-color: transparent;
+    border: none;
+    padding: 14px;
+    font-size: 15px;
+    text-align: left;
+    border-radius: 8px; /* Sudut lebih membulat */
+    margin: 4px 8px; /* Jarak antar tombol */
+}
+
+QPushButton:hover {
+    background-color: #00695c; /* Warna saat cursor di atas */
+    color: white;
+}
+
+QPushButton:checked {
+    background-color: #00796b; /* Warna untuk tombol yang aktif/terpilih */
+    color: white;
+    font-weight: bold;
+}
+
+/* =================================================================== */
+/* AREA KONTEN UTAMA                          */
+/* =================================================================== */
+QWidget#menu-box {
+    background-color: #ffffff;
+    border-radius: 12px;
+    /* EFEK BARU: Hapus border, ganti dengan bayangan halus untuk efek kedalaman */
+    border: 1px solid #dfe5ec;
+}
+
+/* =================================================================== */
+/* HALAMAN DEVICES                             */
+/* =================================================================== */
+
+/* --- Kontainer Utama di Halaman Devices --- */
+QFrame#ac-container, 
+QWidget#sliders-container, 
+QWidget#device-buttons-container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #dfe5ec;
+    padding: 20px; /* RUANG BARU: Padding lebih besar */
+    margin: 10px;
+}
+
+/* Hover effect untuk kontainer */
+QFrame#ac-container:hover, 
+QWidget#sliders-container:hover, 
+QWidget#device-buttons-container:hover {
+    border: 1px solid #b0bec5;
+}
+
+
+/* --- Label untuk Toggle & Slider --- */
+QLabel#toggle-label, QLabel#slider-label {
+    font-weight: bold; 
+    font-size: 14px; 
+    color: #37474f; /* WARNA BARU: Abu-abu tua, lebih baik dari hitam pekat */
+    margin-bottom: 5px; /* RUANG BARU: Beri jarak ke bawah */
+}
+
+QLabel#slider-value-label {
+    color: #004d40; /* Sesuaikan dengan warna utama */
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+/* =================================================================== */
+/* GAUGE SENSOR                             */
+/* =================================================================== */
+
+/* --- Kontainer Gauge di Sidebar --- */
+QWidget#sidebar-gauges-container {
+    background-color: #eceff1; /* WARNA BARU: Abu-abu sangat muda */
+    border-left: 1px solid #dfe5ec;
+}
+
+/* --- Box untuk setiap Gauge --- */
+QWidget#gauge-box {
+    background-color: white;
+    border-radius: 12px; /* Lebih membulat */
+    border: 1px solid #cfd8dc;
+    padding: 12px;
+    margin: 0px 8px; /* RUANG BARU: Margin horizontal */
+}
+
+/* --- Label Nilai Sensor (di bawah StripGauge) --- */
+QLabel#gauge-value-label {
+    border: none;
+    border-radius: 6px;
+    background: #e0f2f1; /* Warna hijau muda yang lembut */
+    color: #00695c; /* Warna hijau tua untuk teks */
+    font-weight: bold;
+    font-size: 13px;
+    padding: 4px;
+    margin-top: 5px;
+    min-width: 70px;
+}
+/* --- Label Nama Sensor (di atas Gauge) --- */
+/* Menambahkan properti baru untuk styling yang lebih spesifik */
+QLabel[sensor-label="true"] {
+    font-size: 13px;
+    font-weight: bold;
+    color: #546e7a;
+    margin-bottom: 8px;
+}
+
+/* =================================================================== */
+/* HALAMAN SETTINGS                          */
+/* =================================================================== */
+QWidget#settings-container {
+    padding: 25px;
+}
+
+QWidget#serial-container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #dfe5ec;
+    padding: 25px;
+}
+
+QPushButton#connect-btn {
+    background-color: #00695c;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin-left: 10px;
+}
+
+QPushButton#connect-btn:hover {
+    background-color: #004d40;
+}
