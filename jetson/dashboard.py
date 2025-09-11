@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QSizePolicy, QSpacerItem
 from PyQt5.QtCore import Qt, QTimer, QDateTime
 from PyQt5.QtGui import QPixmap
+import requests
 
 class Dashboard(QWidget):
     def __init__(self):
@@ -54,8 +55,7 @@ class Dashboard(QWidget):
         right_layout.addWidget(self.date_label)
 
         # Temperature label (simulate, or replace with real sensor data)
-        # self.temp_label = QLabel("")
-        self.temp_label = QLabel("🌡️ -- °C")
+        self.temp_label = QLabel("")
         self.temp_label.setStyleSheet("font-size: 18px; color: white; margin-top: 8px;")
         self.temp_label.setMinimumWidth(180)  # Increased width
         self.temp_label.setAlignment(Qt.AlignmentFlag.AlignLeft)
@@ -71,6 +71,11 @@ class Dashboard(QWidget):
         timer_datetime.start(1000)
         self.update_datetime()
 
+        # Timer for temperature (every 10 minutes)
+        timer_temp = QTimer(self)
+        timer_temp.timeout.connect(self.update_temperature)
+        timer_temp.start(600000)  # 600,000 ms = 10 minutes
+        self.update_temperature()  # Initial fetch
 
         overlay_layout.addLayout(left_layout)
         overlay_layout.addLayout(right_layout)  # Remove the addStretch() between them
@@ -188,16 +193,23 @@ class Dashboard(QWidget):
 
         right_side_widget.resizeEvent = self.resize_logo
 
-    def update_data_from_mqtt(self, temp, hum, lux, eco2, tvoc):
-        """Fungsi ini dipanggil oleh MainWindow untuk memperbarui data dari MQTT."""
-        # Perbarui hanya label suhu yang sudah ada di UI Anda
-        self.temp_label.setText(f"🌡️ {temp:.1f}°C")
-    
     def update_datetime(self):
         now = QDateTime.currentDateTime()
         self.date_label.setText(now.toString("dddd, dd MMMM yyyy"))
         self.time_label.setText(now.toString("HH:mm:ss"))
 
+    def update_temperature(self):
+        # Example: Get temperature for Jakarta, Indonesia (lat: -6.2, lon: 106.8)
+        # You can change these coordinates to match the user's country/city
+        lat, lon = -6.2, 106.8
+        try:
+            url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
+            response = requests.get(url, timeout=5)
+            data = response.json()
+            temp = data["current_weather"]["temperature"]
+            self.temp_label.setText(f"🌡️ {temp}°C")
+        except Exception:
+            self.temp_label.setText("🌡️ N/A")
 
     def set_logo_size(self, size):
         """Manually set the logo size (width and height in px)."""
