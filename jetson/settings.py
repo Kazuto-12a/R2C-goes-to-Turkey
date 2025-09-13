@@ -1,7 +1,7 @@
 import serial
 import serial.tools.list_ports
-from PyQt5.QtCore import Qt, pyqtSignal, QTimer, QRect, QEasingCurve, QPropertyAnimation
-from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QComboBox, QPushButton, QFrame
+from PySide6.QtCore import Qt, Signal, QTimer, QRect, QEasingCurve, QPropertyAnimation
+from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QComboBox, QPushButton, QFrame
 
 class Notification(QFrame):
     def __init__(self, parent=None):
@@ -30,7 +30,7 @@ class Notification(QFrame):
 
 class Settings(QWidget):
     ser = None
-    connection_changed = pyqtSignal(bool)
+    connection_changed = Signal(bool)
 
     def __init__(self):
         super().__init__()

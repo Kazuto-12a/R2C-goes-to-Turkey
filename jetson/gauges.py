@@ -1,16 +1,18 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel
-from PyQt5.QtCore import Qt, QRectF, QPropertyAnimation, pyqtProperty, QEasingCurve
-from PyQt5.QtGui import QPainter, QPen, QColor, QLinearGradient, QBrush, QFont
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel
+from PySide6.QtCore import Qt, QRectF, QPropertyAnimation, Property, QEasingCurve
+from PySide6.QtGui import QPainter, QPen, QColor, QLinearGradient, QBrush, QFont
+
 
 class HalfCircleGauge(QWidget):
     def __init__(self, parent=None, min_temp=20, max_temp=40):
         super().__init__(parent)
-        self._value = 0.0
+        self._value = 0.0  # Nilai gauge (0-100)
         self._target_value = 0.0
-        self.temperature = 25.0
+        self.temperature = 25.0  # Nilai suhu aktual
         self.min_temp = min_temp
         self.max_temp = max_temp
         self.setMinimumSize(220, 130)
+        # Animasi perubahan nilai
         self.anim = QPropertyAnimation(self, b"value", self)
         self.anim.setDuration(600)
         self.anim.setEasingCurve(QEasingCurve.InOutQuad)
@@ -18,12 +20,11 @@ class HalfCircleGauge(QWidget):
     def setValue(self, value):
         value = max(0, min(100, value))
         self._target_value = value
-        # Check if anim exists and is not deleted
+        # Animasi perubahan nilai
         if hasattr(self, "anim") and self.anim is not None:
             try:
                 self.anim.stop()
             except RuntimeError:
-                # Animation was deleted, skip
                 return
             self.anim.setStartValue(self._value)
             self.anim.setEndValue(value)
@@ -32,9 +33,10 @@ class HalfCircleGauge(QWidget):
     def getValue(self):
         return self._value
 
-    value = pyqtProperty(float, fget=getValue, fset=lambda self, v: setattr(self, "_value", v) or self.update())
+    value = Property(float, fget=getValue, fset=lambda self, v: setattr(self, "_value", v) or self.update())
 
     def setTemperature(self, temp):
+        """Set suhu aktual dan update gauge."""
         temp = max(self.min_temp, min(self.max_temp, temp))
         self.temperature = temp
         mapped = int((temp - self.min_temp) * 100 / (self.max_temp - self.min_temp))
@@ -53,19 +55,14 @@ class HalfCircleGauge(QWidget):
         center_y = rect.bottom() - 10
         arc_rect = QRectF(center_x - radius, center_y - radius, radius * 2, radius * 2)
 
-        # Draw background (transparent)
-        painter.setPen(Qt.NoPen)
-        painter.setBrush(Qt.NoBrush)
-        # painter.drawEllipse(center_x - radius, center_y - radius, radius * 2, radius * 2)  # Remove solid ellipse
-
-        # Background arc (full half-circle, left to right)
+        # Background arc (setengah lingkaran abu-abu)
         pen_bg = QPen(QColor("#e0e0e0"), 18)
         painter.setPen(pen_bg)
         painter.drawArc(arc_rect, 180 * 16, -180 * 16)
 
-        # Foreground arc (value, left to right, blue-to-red gradient)
-        cold_color = QColor("#2196f3")  # Blue
-        hot_color = QColor("#e53935")   # Red
+        # Foreground arc (warna gradien biru ke merah sesuai nilai)
+        cold_color = QColor("#2196f3")  # Biru
+        hot_color = QColor("#e53935")   # Merah
         ratio = self._value / 100
         arc_color = QColor(
             int(cold_color.red()   + (hot_color.red()   - cold_color.red())   * ratio),
@@ -78,7 +75,7 @@ class HalfCircleGauge(QWidget):
         span_angle = int(-180 * 16 * (self._value / 100))
         painter.drawArc(arc_rect, 180 * 16, span_angle)
 
-        # Temperature text (move a little higher)
+        # Teks suhu di tengah gauge
         temp_text = f"{self.temperature:.1f} °C"
         font = QFont()
         font.setPointSize(18)
@@ -93,6 +90,7 @@ class HalfCircleGauge(QWidget):
         )
         painter.drawText(temp_rect, Qt.AlignHCenter | Qt.AlignVCenter, temp_text)
 
+
 class StripGauge(QWidget):
     def __init__(self, parent=None, value=0, min_value=0, max_value=100):
         super().__init__(parent)
@@ -102,6 +100,7 @@ class StripGauge(QWidget):
         self.setMinimumHeight(22)
         self.setMaximumHeight(26)
         self.setMinimumWidth(120)
+        # Animasi perubahan nilai
         self.anim = QPropertyAnimation(self, b"value", self)
         self.anim.setDuration(400)
         self.anim.setEasingCurve(QEasingCurve.InOutQuad)
@@ -128,16 +127,16 @@ class StripGauge(QWidget):
     def getValue(self):
         return self._value
 
-    value = pyqtProperty(int, fget=getValue, fset=lambda self, v: setattr(self, "_value", v) or self.update())
+    value = Property(int, fget=getValue, fset=lambda self, v: setattr(self, "_value", v) or self.update())
 
     def paintEvent(self, event):
         painter = QPainter(self)
         rect = self.rect()
-        # Draw background with rounded corners
+        # Background strip (abu-abu muda)
         painter.setPen(QPen(QColor("#c8e6c9"), 1.5))
         painter.setBrush(QColor("#f1f8e9"))
         painter.drawRoundedRect(rect, 8, 8)
-        # Draw filled part with green gradient
+        # Bagian terisi (gradien hijau)
         fill_width = rect.width() * self._value / 100
         grad = QLinearGradient(rect.left(), rect.top(), rect.right(), rect.bottom())
         grad.setColorAt(0, QColor("#43a047"))
@@ -146,6 +145,7 @@ class StripGauge(QWidget):
         painter.setPen(Qt.NoPen)
         fill_rect = QRectF(rect.left(), rect.top(), fill_width, rect.height())
         painter.drawRoundedRect(fill_rect, 8, 8)
+
 
 class SensorGaugesWidget(QWidget):
     def __init__(self, sensor_values, parent=None):
@@ -156,7 +156,7 @@ class SensorGaugesWidget(QWidget):
         layout.setSpacing(24)
         self.setLayout(layout)
 
-        # Temperature: Half Circle Gauge (linked)
+        # Gauge suhu (half circle)
         self.gauge = HalfCircleGauge()
         temp_gauge_container = QVBoxLayout()
         self.temp_label = QLabel("🌡️ Temperature")
@@ -169,7 +169,7 @@ class SensorGaugesWidget(QWidget):
         temp_gauge_widget.setLayout(temp_gauge_container)
         layout.addWidget(temp_gauge_widget)
 
-        # CO2: StripGauge + label
+        # Gauge CO2
         co2_container = QVBoxLayout()
         co2_label = QLabel("🟢 CO₂ (ppm)")
         co2_label.setAlignment(Qt.AlignCenter)
@@ -185,7 +185,7 @@ class SensorGaugesWidget(QWidget):
         co2_widget.setLayout(co2_container)
         layout.addWidget(co2_widget)
 
-        # TVOC: StripGauge + label
+        # Gauge TVOC
         tvoc_container = QVBoxLayout()
         tvoc_label = QLabel("🧪 TVOC (mg/m³)")
         tvoc_label.setAlignment(Qt.AlignCenter)
@@ -201,7 +201,7 @@ class SensorGaugesWidget(QWidget):
         tvoc_widget.setLayout(tvoc_container)
         layout.addWidget(tvoc_widget)
 
-        # Humidity: StripGauge + label
+        # Gauge Humidity
         hum_container = QVBoxLayout()
         hum_label = QLabel("💧 Humidity (%)")
         hum_label.setAlignment(Qt.AlignCenter)
@@ -217,7 +217,7 @@ class SensorGaugesWidget(QWidget):
         hum_widget.setLayout(hum_container)
         layout.addWidget(hum_widget)
 
-        # Lux: StripGauge + label
+        # Gauge Lux
         lux_container = QVBoxLayout()
         lux_label = QLabel("💡 Lux")
         lux_label.setAlignment(Qt.AlignCenter)
@@ -234,6 +234,7 @@ class SensorGaugesWidget(QWidget):
         layout.addWidget(lux_widget)
 
     def update_sensors(self, sensor_values):
+        """Update semua gauge dan label dengan nilai sensor baru."""
         self.sensor_values = sensor_values
         self.gauge.setTemperature(self.sensor_values["temp"])
         self.co2_gauge.setValue(self.sensor_values["co2"] // 20)

@@ -1,175 +1,382 @@
 /* =================================================================== */
-/* PALET WARNA & FONT BARU                        */
+/* PALET WARNA DARK BLUE THEME + PELENGKAP                             */
 /* =================================================================== */
 /*
-* {
-    font-family: "Roboto", sans-serif; /* FONT BARU: Menggunakan Roboto untuk tampilan modern & bersih */
-}
+    #39ace7 (biru terang)
+    #0784b5 (biru sedang)
+    #414c50 (abu gelap)
+    #2d383c (abu kebiruan gelap)
+    #192428 (hampir hitam)
+    #ffffff (putih, teks utama)
+    #b0bec5 (abu terang, teks sekunder)
+    #b3e5fc (biru muda, highlight)
+    #e57373 (merah, error)
+    #81c784 (hijau, success)
 */
-/* =================================================================== */
-/* GAYA JENDELA UTAMA                          */
-/* =================================================================== */
+
 QMainWindow, QWidget#central-widget {
-    background-color: #f4f7fa; /* WARNA BARU: Latar belakang off-white, lebih nyaman di mata */
+    background-color: #192428;
+    color: #ffffff;
 }
 
-/* =================================================================== */
-/* SIDEBAR                               */
-/* =================================================================== */
 QWidget#sidebar {
-    background-color: #004d40; /* WARNA BARU: Hijau teal yang lebih dalam dan elegan */
-    border-right: none; /* Hapus border, kita akan gunakan shadow untuk pemisah */
+    background-color: #2d383c;
+    border-right: none;
 }
 
 QLabel#sidebar-label {
-    color: #e0f2f1; /* Warna teks yang lebih lembut */
+    color: #39ace7;
     font-size: 18px;
     font-weight: bold;
     padding: 15px 10px;
     qproperty-alignment: 'AlignCenter';
-    letter-spacing: 1.5px; /* Sedikit jarak antar huruf untuk kesan premium */
+    letter-spacing: 1.5px;
 }
 
 QFrame#sidebar-divider {
-    background-color: #26a69a; /* Warna divider yang lebih cerah dan kontras */
+    background-color: #0784b5;
     height: 1px;
-    margin: 5px 10px; /* Beri sedikit margin */
+    margin: 5px 10px;
 }
 
-/* --- Tombol Sidebar --- */
 QPushButton {
-    color: #b2dfdb; /* Warna teks tombol default */
+    color: #39ace7;
     background-color: transparent;
     border: none;
     padding: 14px;
     font-size: 15px;
     text-align: left;
-    border-radius: 8px; /* Sudut lebih membulat */
-    margin: 4px 8px; /* Jarak antar tombol */
+    border-radius: 8px;
+    margin: 4px 8px;
 }
-
 QPushButton:hover {
-    background-color: #00695c; /* Warna saat cursor di atas */
-    color: white;
+    background-color: #b3e5fc;
+    color: #192428;
 }
-
 QPushButton:checked {
-    background-color: #00796b; /* Warna untuk tombol yang aktif/terpilih */
-    color: white;
+    background-color: #414c50;
+    color: #39ace7;
     font-weight: bold;
 }
 
-/* =================================================================== */
-/* AREA KONTEN UTAMA                          */
-/* =================================================================== */
 QWidget#menu-box {
-    background-color: #ffffff;
+    background-color: #2d383c;
     border-radius: 12px;
-    /* EFEK BARU: Hapus border, ganti dengan bayangan halus untuk efek kedalaman */
-    border: 1px solid #dfe5ec;
+    border: 1px solid #414c50;
+    color: #ffffff;
 }
 
-/* =================================================================== */
-/* HALAMAN DEVICES                             */
-/* =================================================================== */
-
-/* --- Kontainer Utama di Halaman Devices --- */
-QFrame#ac-container, 
-QWidget#sliders-container, 
+QFrame#ac-container {
+    background-color: #414c50;
+    border-radius: 10px;
+    border: 1.5px solid #39ace7;
+    padding: 12px 18px 18px 18px;
+    margin: 8px 0 12px 0;
+    color: #ffffff;
+}
+QWidget#sliders-container,
 QWidget#device-buttons-container {
-    background-color: #ffffff;
+    background-color: #414c50;
     border-radius: 12px;
-    border: 1px solid #dfe5ec;
-    padding: 20px; /* RUANG BARU: Padding lebih besar */
+    border: 1px solid #2d383c;
+    padding: 20px;
     margin: 10px;
+    color: #ffffff;
 }
-
-/* Hover effect untuk kontainer */
-QFrame#ac-container:hover, 
-QWidget#sliders-container:hover, 
+QFrame#ac-container:hover,
+QWidget#sliders-container:hover,
 QWidget#device-buttons-container:hover {
-    border: 1px solid #b0bec5;
+    border: 1px solid #39ace7;
 }
-
-
-/* --- Label untuk Toggle & Slider --- */
-QLabel#toggle-label, QLabel#slider-label {
-    font-weight: bold; 
-    font-size: 14px; 
-    color: #37474f; /* WARNA BARU: Abu-abu tua, lebih baik dari hitam pekat */
-    margin-bottom: 5px; /* RUANG BARU: Beri jarak ke bawah */
+QWidget#devices-container {
+    background: transparent;
 }
-
+QWidget#device-buttons-container {
+    background: #2d383c;
+    border-radius: 12px;
+    border: 1px solid #414c50;
+    padding: 18px;
+    margin-bottom: 10px;
+}
+QLabel#toggle-label,
+QLabel#slider-label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #39ace7;
+    margin-bottom: 5px;
+}
 QLabel#slider-value-label {
-    color: #004d40; /* Sesuaikan dengan warna utama */
+    color: #b3e5fc;
     font-weight: bold;
     font-size: 15px;
     margin-left: 10px;
 }
-
-/* =================================================================== */
-/* GAUGE SENSOR                             */
-/* =================================================================== */
-
-/* --- Kontainer Gauge di Sidebar --- */
+QPushButton#toggle-btn {
+    background: #0784b5;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 1px solid #39ace7;
+}
+QPushButton#toggle-btn:checked {
+    background: #39ace7;
+    color: #192428;
+}
 QWidget#sidebar-gauges-container {
-    background-color: #eceff1; /* WARNA BARU: Abu-abu sangat muda */
-    border-left: 1px solid #dfe5ec;
+    background-color: #192428;
+    border-left: 1px solid #414c50;
 }
-
-/* --- Box untuk setiap Gauge --- */
 QWidget#gauge-box {
-    background-color: white;
-    border-radius: 12px; /* Lebih membulat */
-    border: 1px solid #cfd8dc;
-    padding: 12px;
-    margin: 0px 8px; /* RUANG BARU: Margin horizontal */
+    background-color: #26343c;
+    border-radius: 10px;
+    border: 2px solid #39ace7;
+    padding: 8px 6px 8px 6px;
+    margin: 6px 4px;
 }
-
-/* --- Label Nilai Sensor (di bawah StripGauge) --- */
 QLabel#gauge-value-label {
     border: none;
-    border-radius: 6px;
-    background: #e0f2f1; /* Warna hijau muda yang lembut */
-    color: #00695c; /* Warna hijau tua untuk teks */
+    border-radius: 5px;
+    background: #39ace7;
+    color: #fff;
     font-weight: bold;
-    font-size: 13px;
-    padding: 4px;
-    margin-top: 5px;
-    min-width: 70px;
+    font-size: 15px;
+    padding: 4px 10px;
+    margin-top: 6px;
+    min-width: 56px;
+    qproperty-alignment: 'AlignCenter';
 }
-/* --- Label Nama Sensor (di atas Gauge) --- */
-/* Menambahkan properti baru untuk styling yang lebih spesifik */
 QLabel[sensor-label="true"] {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: bold;
-    color: #546e7a;
-    margin-bottom: 8px;
+    color: #b3e5fc;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
 }
-
-/* =================================================================== */
-/* HALAMAN SETTINGS                          */
-/* =================================================================== */
+QLabel[sensor-label="true"][text*="CO₂"] {
+    color: #81c784;
+}
+QLabel[sensor-label="true"][text*="Humidity"] {
+    color: #39ace7;
+}
+QLabel[sensor-label="true"][text*="Lux"] {
+    color: #ffd600;
+}
+QLabel[sensor-label="true"][text*="TVOC"] {
+    color: #ba68c8;
+}
 QWidget#settings-container {
     padding: 25px;
 }
-
 QWidget#serial-container {
-    background-color: #ffffff;
+    background-color: #2d383c;
     border-radius: 12px;
-    border: 1px solid #dfe5ec;
+    border: 1px solid #414c50;
     padding: 25px;
 }
-
 QPushButton#connect-btn {
-    background-color: #00695c;
-    color: white;
+    background-color: #39ace7;
+    color: #192428;
     font-weight: bold;
     border-radius: 8px;
     padding: 10px 20px;
     margin-left: 10px;
 }
-
 QPushButton#connect-btn:hover {
-    background-color: #004d40;
+    background-color: #81c784;
+    color: #192428;
+}
+QWidget#dashboard-topbar {
+    color: #fff;
+    border-radius: 18px;
+    border: 2px solid #39ace7;
+    padding: 0 12px 0 12px;
+    margin: 0 0 8px 0;
+}
+QLabel#dashboard-greeting {
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+}
+QLabel#dashboard-subtext {
+    font-size: 15px;
+    color: #b3e5fc;
+}
+QLabel#dashboard-time {
+    font-size: 26px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 1px;
+}
+QLabel#dashboard-date {
+    font-size: 15px;
+    color: #b0bec5;
+}
+QLabel#dashboard-temp {
+    font-size: 20px;
+    color: #e57373;
+    font-weight: bold;
+}
+QWidget#dashboard-logo-card {
+    background: #22303a;
+    border-radius: 18px;
+    border: 2px solid #39ace7;
+    padding: 8px 18px;
+    margin-left: 12px;
+}
+QLabel#dashboard-logo-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #39ace7;
+    margin-left: 12px;
+}
+QWidget#main-content {
+    background-color: #313c42;
+    border-radius: 18px;
+    border: 2px solid #414c50;
+}
+QLabel#dashboard-placeholder {
+    font-size: 22px;
+    color: #b3e5fc;
+}
+QWidget#sliders-container {
+    background: #2d383c;
+    border-radius: 12px;
+    border: 1px solid #414c50;
+    padding: 18px;
+    margin-bottom: 10px;
+}
+QSlider#device-slider {
+    min-height: 18px;
+    max-height: 18px;
+    background: transparent;
+}
+QSlider#device-slider::groove:horizontal {
+    border: 1px solid #414c50;
+    height: 8px;
+    background: #b0bec5;
+    border-radius: 4px;
+}
+QSlider#device-slider::sub-page:horizontal {
+    background: #39ace7;
+    border-radius: 4px;
+}
+QSlider#device-slider::add-page:horizontal {
+    background: #414c50;
+    border-radius: 4px;
+}
+QSlider#device-slider::handle:horizontal {
+    background: #39ace7;
+    border: 2px solid #0784b5;
+    width: 22px;
+    height: 22px;
+    margin: -7px 0;
+    border-radius: 11px;
+}
+QSlider#device-slider::handle:horizontal:hover {
+    background: #0784b5;
+    border: 2px solid #39ace7;
+}
+QSlider#device-slider:disabled {
+    opacity: 0.5;
+}
+QPushButton#ac-toggle-btn {
+    background: #39ace7;
+    color: #192428;
+    font-weight: bold;
+    border-radius: 7px;
+    border: 1.5px solid #0784b5;
+    min-width: 70px;
+    min-height: 32px;
+    max-width: 80px;
+    max-height: 36px;
+    font-size: 15px;
+    margin-left: 8px;
+}
+QPushButton#ac-toggle-btn:checked {
+    background: #0784b5;
+    color: #fff;
+}
+QPushButton#ac-minus-btn, QPushButton#ac-plus-btn {
+    background: #39ace7;
+    color: #192428;
+    font-weight: bold;
+    border-radius: 7px;
+    border: 1.5px solid #0784b5;
+    min-width: 38px;
+    min-height: 38px;
+    max-width: 44px;
+    max-height: 44px;
+    font-size: 22px;
+    margin: 0 8px;
+}
+QPushButton#ac-minus-btn:hover, QPushButton#ac-plus-btn:hover {
+    background: #81c784;
+    color: #192428;
+    border: 1.5px solid #39ace7;
+}
+QLabel#ac-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #39ace7;
+    margin-bottom: 0px;
+    margin-top: 2px;
+}
+QLabel#auto-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #39ace7;
+}
+QWidget#dashboard-graph-frame {
+    background: #26343c;
+    border: 2px solid #39ace7;
+    border-radius: 12px;
+    padding: 8px 8px 8px 8px;
+    margin-bottom: 10px;
+    min-height: 220px;
+    max-height: 320px;
+    min-width: 420px;
+    max-width: 700px;
+}
+QFrame#auto-main-container {
+    background: transparent;
+    border: none;
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+QFrame#auto-control-panel {
+    background: #26343c;
+    border-radius: 18px;
+    border: 2px solid #39ace7;
+    padding: 24px 32px;
+    min-width: 340px;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+}
+QPushButton#auto-start-btn {
+    background: #81c784;
+    color: #192428;
+    font-weight: bold;
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 8px 24px;
+}
+QPushButton#auto-start-btn:hover {
+    background: #43a047;
+    color: #fff;
+}
+/* Notifikasi warna tambahan */
+.Notification-success {
+    background: #81c784;
+    color: #192428;
+}
+.Notification-error {
+    background: #e57373;
+    color: #fff;
+}
+.Notification-info {
+    background: #b3e5fc;
+    color: #192428;
 }

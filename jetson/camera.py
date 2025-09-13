@@ -1,11 +1,11 @@
 import cv2
-from PyQt5.QtCore import QThread, pyqtSignal, QObject, Qt
-from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QFrame, QPushButton
+from PySide6.QtCore import QThread, Signal, QObject, Qt
+from PySide6.QtGui import QImage, QPixmap
+from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QFrame, QPushButton
 
 class CameraWorker(QObject):
-    frame_ready = pyqtSignal(int, QImage)
-    camera_error = pyqtSignal(int, str)
+    frame_ready = Signal(int, QImage)
+    camera_error = Signal(int, str)
 
     def __init__(self, camera_index):
         super().__init__()
